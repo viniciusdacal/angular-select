@@ -143,7 +143,7 @@
   <h3>Tagging without multiple with label and complex objects</h3>
   <ui-select tagging="convertToPerson" on-select="onSelect($item, $model)" ng-model="person.selected" ng-disabled="disabled"  title="Choose a person" style="width: 800px;">
   <ui-select-match placeholder="Selecione um cliente">{{$select.selected.name}}</ui-select-match>
-  <ui-select-choices repeat="person in people | filter: $select.search track by person.name" >
+  <ui-select-choices repeat="person in people | propsFilter: {name: $select.search}" >
     <div ng-if="person.isTag" ng-bind-html="person.name +' <small>(new)</small>'"></div>
     <div ng-if="!person.isTag" ng-bind-html="person.name | highlight: $select.search"></div>
   </ui-select-choices>
