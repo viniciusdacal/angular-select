@@ -121,6 +121,24 @@ app.controller('DemoCtrl', function($scope, $http, $timeout, $interval) {
     return item;
   };
 
+  $scope.convertToPerson = function (newPersonName) {
+    var person = {
+        name: newPersonName
+    };
+
+    return person;
+  };
+
+  $scope.onSelect = function($item, $model){
+    if(!$item.isTag){
+        return false;
+    }
+    var item = angular.copy($item);
+    delete item.isTag;
+
+    $scope.people.push(item);
+  };
+
   $scope.person = {};
   $scope.people = [
     { name: 'Adam',      email: 'adam@email.com',      age: 12, country: 'United States' },
