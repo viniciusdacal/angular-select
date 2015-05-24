@@ -1,7 +1,7 @@
 /*!
  * ui-select
  * http://github.com/angular-ui/ui-select
- * Version: 0.11.2 - 2015-05-24T18:40:16.380Z
+ * Version: 0.11.2 - 2015-05-24T18:52:23.418Z
  * License: MIT
  */
 
@@ -219,7 +219,7 @@ uis.directive('uiSelectChoices',
         $compile(element, transcludeFn)(scope); //Passing current transcludeFn to be able to append elements correctly from uisTranscludeAppend
 
         scope.$watch('$select.search', function(newValue) {
-          if(newValue && !$select.open) $select.activate(false, true);
+          if(newValue && !$select.open && $select.multiple) $select.activate(false, true);
           $select.activeIndex = $select.tagging.isActivated ? -1 : 0;
           $select.refresh(attrs.refresh);
         });
