@@ -43,7 +43,7 @@ uis.controller('uiSelectCtrl',
   if (ctrl.searchInput.length !== 1) {
     throw uiSelectMinErr('searchInput', "Expected 1 input.ui-select-search but got '{0}'.", ctrl.searchInput.length);
   }
-  
+
   ctrl.isEmpty = function() {
     return angular.isUndefined(ctrl.selected) || ctrl.selected === null || ctrl.selected === '';
   };
@@ -479,10 +479,15 @@ uis.controller('uiSelectCtrl',
           stashArr = stashArr.slice(1,stashArr.length);
         }
         newItem = ctrl.tagging.fct(ctrl.search);
-        newItem.isTag = true;
-        // verify the the tag doesn't match the value of an existing item
-        if ( stashArr.filter( function (origItem) { return angular.equals( origItem, ctrl.tagging.fct(ctrl.search) ); } ).length > 0 ) {
-          return;
+        // verify the tag doesn't match the value of an existing item
+        if(ctrl.parserResult.trackByExp){
+          var prop = ctrl.parserResult.trackByExp.replace(ctrl.parserResult.itemName+'.', '');
+          if(stashArr.filter( function (origItem) { return origItem[prop] == newItem[prop]; }).length > 0 ){
+            return _refreshItems(items);
+          }
+
+        }else if ( stashArr.filter( function (origItem) { return angular.equals( origItem, newItem ); } ).length > 0 ) {
+          return _refreshItems(items);
         }
         newItem.isTag = true;
       // handle newItem string and stripping dupes in tagging string context
@@ -512,19 +517,16 @@ uis.controller('uiSelectCtrl',
           // and return early
           if ( hasTag ) {
             items = stashArr;
-            $scope.$evalAsync( function () {
-              ctrl.activeIndex = 0;
-              ctrl.items = items;
-            });
           }
-          return;
+          return _refreshItems(items);
         }
+
         if ( _findCaseInsensitiveDupe(stashArr) ) {
           // if there is a tag from prev iteration, strip it
           if ( hasTag ) {
             ctrl.items = stashArr.slice(1,stashArr.length);
           }
-          return;
+          return _refreshItems(items);
         }
       }
       if ( hasTag ) dupeIndex = _findApproxDupe(ctrl.selected, newItem);
@@ -536,10 +538,8 @@ uis.controller('uiSelectCtrl',
         items.push(newItem);
         items = items.concat(stashArr);
       }
-      $scope.$evalAsync( function () {
-        ctrl.activeIndex = 0;
-        ctrl.items = items;
-      });
+
+      return _refreshItems(items);
     }
 
   });
@@ -579,6 +579,13 @@ uis.controller('uiSelectCtrl',
       }
     }
     return dupeIndex;
+  }
+
+  function _refreshItems(items){
+    $scope.$evalAsync( function () {
+      ctrl.activeIndex = 0;
+      ctrl.items = items;
+    });
   }
 
   // If tagging try to split by tokens and add items
