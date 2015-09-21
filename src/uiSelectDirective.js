@@ -199,14 +199,10 @@ uis.directive('uiSelect',
             }
           });
 
-          // $document.bind('scroll', function() {
-          //   positionDropdown();
-          // });
           // Move the dropdown back to its original location when the scope is destroyed. Otherwise
           // it might stick around when the user routes away or the select field is otherwise removed
           scope.$on('$destroy', function() {
             resetDropdown();
-            //$document.unbind('scroll');
           });
         }
 
