@@ -226,14 +226,17 @@ uis.directive('uiSelect',
 
           // Now move the actual dropdown element to the end of the body
           if (attrs.appendTo) {
-            $document.find(attrs.appendTo).append(element);
+            var parent = $document.find(attrs.appendTo);
+            parent.append(element);
+            element[0].style.left = (offset.left - parent.offset.left) + 'px';
+            element[0].style.top = (offset.top - parent.offset.top) + 'px';
           }else {
             $document.find('body').append(element);
+            element[0].style.left = offset.left + 'px';
+            element[0].style.top = offset.top + 'px';
           }
 
           element[0].style.position = 'absolute';
-          element[0].style.left = offset.left + 'px';
-          element[0].style.top = offset.top + 'px';
           element[0].style.width = offset.width + 'px';
         }
 
