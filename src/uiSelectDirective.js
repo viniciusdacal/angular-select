@@ -43,7 +43,7 @@ uis.directive('uiSelect',
 
         $select.onSelectCallback = $parse(attrs.onSelect);
         $select.onRemoveCallback = $parse(attrs.onRemove);
-        
+
         //Set reference to ngModel from uiSelectCtrl
         $select.ngModel = ngModel;
 
@@ -190,7 +190,7 @@ uis.directive('uiSelect',
 
         // Support for appending the select field to the body when its open
         var appendToBody = scope.$eval(attrs.appendToBody);
-        if (appendToBody !== undefined ? appendToBody : uiSelectConfig.appendToBody) {
+        if ((appendToBody !== undefined ? appendToBody : uiSelectConfig.appendToBody) || attrs.appendTo) {
           scope.$watch('$select.open', function(isOpen) {
             if (isOpen) {
               positionDropdown();
@@ -225,7 +225,11 @@ uis.directive('uiSelect',
           originalWidth = element[0].style.width;
 
           // Now move the actual dropdown element to the end of the body
-          $document.find('body').append(element);
+          if (attrs.appendTo) {
+            $document.find(attrs.appendTo).append(element);
+          }else {
+            $document.find('body').append(element);
+          }
 
           element[0].style.position = 'absolute';
           element[0].style.left = offset.left + 'px';

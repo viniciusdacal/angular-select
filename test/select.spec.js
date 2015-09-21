@@ -105,6 +105,7 @@ describe('ui-select tests', function() {
       if (attrs.taggingTokens !== undefined) { attrsHtml += ' tagging-tokens="' + attrs.taggingTokens + '"'; }
       if (attrs.title !== undefined) { attrsHtml += ' title="' + attrs.title + '"'; }
       if (attrs.appendToBody != undefined) { attrsHtml += ' append-to-body="' + attrs.appendToBody + '"'; }
+      if (attrs.appendTo != undefined) { attrsHtml += ' append-to="' + attrs.appendTo + '"'; }
       if (attrs.allowClear != undefined) { matchAttrsHtml += ' allow-clear="' + attrs.allowClear + '"';}
     }
 
@@ -1846,6 +1847,23 @@ describe('ui-select tests', function() {
           };
         }
       }
+    });
+  });
+
+  describe('select with the appendTo option', function() {
+    var body;
+
+    beforeEach(inject(function($document) {
+      body = $document.find('body')[0];
+    }));
+
+    it('should be moved to the end of an element when the appendTo option is a selector', function() {
+      var parent = document.createElement('DIV');
+      parent.className = 'content-append';
+      document.body.appendChild(parent);
+      var el = createUiSelect({appendTo: '.content-append'});
+      openDropdown(el);
+      expect(el.parent()[0]).toBe(parent);
     });
   });
 
