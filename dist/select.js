@@ -1,7 +1,7 @@
 /*!
  * ui-select
  * http://github.com/angular-ui/ui-select
- * Version: 0.11.2 - 2015-09-21T20:26:16.000Z
+ * Version: 0.0.5 - 2015-09-22T13:31:28.624Z
  * License: MIT
  */
 
@@ -1109,9 +1109,10 @@ uis.directive('uiSelect',
           // Now move the actual dropdown element to the end of the body
           if (attrs.appendTo) {
             var parent = $document.find(attrs.appendTo);
+            var parentOffset = parent.offset();
             parent.append(element);
-            element[0].style.left = (offset.left - parent.offset.left) + 'px';
-            element[0].style.top = (offset.top - parent.offset.top) + 'px';
+            element[0].style.left = (offset.left - parentOffset.left) + 'px';
+            element[0].style.top = (offset.top - parentOffset.top) + 'px';
           }else {
             $document.find('body').append(element);
             element[0].style.left = offset.left + 'px';
