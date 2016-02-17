@@ -9,6 +9,7 @@ uis.directive('uiSelectChoices',
     transclude: true,
     templateUrl: function(tElement) {
       // Gets theme attribute from parent (ui-select)
+      tElement.addClass('ui-select-choices');
       var theme = tElement.parent().attr('theme') || uiSelectConfig.theme;
       return theme + '/choices.tpl.html';
     },
