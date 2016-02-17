@@ -6,6 +6,7 @@ uis.directive('uiSelectMatch', ['uiSelectConfig', function(uiSelectConfig) {
     transclude: true,
     templateUrl: function(tElement) {
       // Gets theme attribute from parent (ui-select)
+      tElement.addClass('ui-select-match');
       var theme = tElement.parent().attr('theme') || uiSelectConfig.theme;
       var multi = tElement.parent().attr('multiple');
       return theme + (multi ? '/match-multiple.tpl.html' : '/match.tpl.html');
