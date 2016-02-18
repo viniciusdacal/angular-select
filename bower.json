@@ -1,11 +1,12 @@
 {
-  "name": "ui-select",
+  "name": "angular-select-compufacil",
   "version": "0.1.0",
-  "homepage": "https://github.com/angular-ui/ui-select",
+  "homepage": "https://github.com/viniciusdacal/angular-select",
   "authors": [
-    "AngularUI"
+    "AngularUI",
+    "viniciusdacal",
   ],
-  "description": "AngularJS ui-select",
+  "description": "AngularJS angular-select",
   "main": ["dist/select.js", "dist/select.css"],
   "license": "MIT",
   "ignore": [
