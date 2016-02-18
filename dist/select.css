@@ -1,7 +1,7 @@
 /*!
  * ui-select
  * http://github.com/angular-ui/ui-select
- * Version: 0.0.6 - 2016-02-18T11:01:53.479Z
+ * Version: 0.0.6 - 2016-02-18T13:51:44.112Z
  * License: MIT
  */
 
@@ -51,13 +51,23 @@
     z-index: 999999999;
     height: 100%;
 }
-.ui-select-loading-indicator img {
-    max-width: 100%;
+.ui-select-loading-indicator span {
     position: absolute;
+    width: 20px;
     height: 20px;
-    top: 50%;
     margin-top: -10px;
+    top: 50%;
+    -webkit-animation:spin 1.5s linear infinite;
+    -moz-animation:spin 1.5s linear infinite;
+    animation:spin 1.5s linear infinite;
+    background: url('data:image/gif;base64,R0lGODlhIAAgALMAAAAAAP///+Hh4dbW1sTExLq6urOzs5eXl4GBgVRUVDQ0NBsbGwEBAf///wAAAAAAACH5BAEAAA0ALAAAAAAgACAAAATnsMlJ6WGn6s3nYks1CJ1mIBWjUoRhlJSwLAmlMpPgFjA1Ly/JbVJwDXoTxEwxGTYGOyRFMUM1nC4DSSox/EhDqIFAEW8bBoUiM0lUNbpc0Tg5qBWJIGHB7rSyZBQJd3hHPVkGBWcUBoN3SGKGHXYKQT2SMAJWXJxciDsCBAcIpKWcnzulqptIqIqiq6ydsx2YMLa1dCWRSHOJi3JZPEh/LoETxYm3lgK+kmK/E1oaYsdPRWc6Bph/R1ldLsA92kHfT1Gcc4bmDepcYsNoLjnsPXNn9X+eY4zzZeIdBNgqEo/WhmYAN0QAADs=');
+    background-size: 100%;
 }
+
+
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
 
 body > .select2-container.open {
   z-index: 9999; /* The z-index Select2 applies to the select2-drop */
