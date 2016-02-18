@@ -2,7 +2,7 @@ var fs = require('fs');
 var del = require('del');
 var gulp = require('gulp');
 var es = require('event-stream');
-var karma = require('karma').server;
+var Server = require('karma').Server;
 var $ = require('gulp-load-plugins')();
 var runSequence = require('run-sequence');
 var conventionalRecommendedBump = require('conventional-recommended-bump');
@@ -85,11 +85,11 @@ gulp.task('styles', ['clean'], function() {
 });
 
 gulp.task('karma', ['build'], function() {
-  karma.start({configFile : __dirname +'/karma.conf.js', singleRun: true});
+  new Server({configFile : __dirname +'/karma.conf.js', singleRun: true}).start();
 });
 
 gulp.task('karma-watch', ['build'], function() {
-  karma.start({configFile :  __dirname +'/karma.conf.js', singleRun: false});
+  new Server({configFile :  __dirname +'/karma.conf.js', singleRun: false}).start();
 });
 
 gulp.task('pull', function(done) {
