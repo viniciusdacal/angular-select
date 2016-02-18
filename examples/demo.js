@@ -42,6 +42,7 @@ app.filter('propsFilter', function() {
 app.controller('DemoCtrl', function($scope, $http, $timeout, $interval) {
   $scope.disabled = undefined;
   $scope.searchEnabled = undefined;
+  $scope.showLoader = true;
 
   $scope.setInputFocus = function (){
     $scope.$broadcast('UiSelectDemo1');
@@ -49,6 +50,10 @@ app.controller('DemoCtrl', function($scope, $http, $timeout, $interval) {
 
   $scope.enable = function() {
     $scope.disabled = false;
+  };
+
+  $scope.switchLoader = function() {
+    $scope.showLoader = !$scope.showLoader;
   };
 
   $scope.disable = function() {
