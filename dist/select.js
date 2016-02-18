@@ -1,7 +1,7 @@
 /*!
  * angular-select-compufacil
  * http://github.com/viniciusdacal/angular-select-compufacil
- * Version: 0.1.1 - 2016-02-18T18:12:44.712Z
+ * Version: 0.1.2 - 2016-02-18T18:16:03.104Z
  * License: MIT
  */
 
