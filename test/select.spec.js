@@ -99,14 +99,15 @@ describe('ui-select tests', function() {
     if (attrs !== undefined) {
       if (attrs.disabled !== undefined) { attrsHtml += ' ng-disabled="' + attrs.disabled + '"'; }
       if (attrs.required !== undefined) { attrsHtml += ' ng-required="' + attrs.required + '"'; }
+      if (attrs.showLoader !== undefined) { attrsHtml += ' show-loader="' + attrs.showLoader + '"';}
       if (attrs.theme !== undefined) { attrsHtml += ' theme="' + attrs.theme + '"'; }
       if (attrs.tabindex !== undefined) { attrsHtml += ' tabindex="' + attrs.tabindex + '"'; }
       if (attrs.tagging !== undefined) { attrsHtml += ' tagging="' + attrs.tagging + '"'; }
       if (attrs.taggingTokens !== undefined) { attrsHtml += ' tagging-tokens="' + attrs.taggingTokens + '"'; }
       if (attrs.title !== undefined) { attrsHtml += ' title="' + attrs.title + '"'; }
-      if (attrs.appendToBody != undefined) { attrsHtml += ' append-to-body="' + attrs.appendToBody + '"'; }
-      if (attrs.appendTo != undefined) { attrsHtml += ' append-to="' + attrs.appendTo + '"'; }
-      if (attrs.allowClear != undefined) { matchAttrsHtml += ' allow-clear="' + attrs.allowClear + '"';}
+      if (attrs.appendToBody !== undefined) { attrsHtml += ' append-to-body="' + attrs.appendToBody + '"'; }
+      if (attrs.appendTo !== undefined) { attrsHtml += ' append-to="' + attrs.appendTo + '"'; }
+      if (attrs.allowClear !== undefined) { matchAttrsHtml += ' allow-clear="' + attrs.allowClear + '"';}
     }
 
     return compileTemplate(
@@ -1920,6 +1921,29 @@ describe('ui-select tests', function() {
       expect(el.css('top')).toBe(originalTop);
       expect(el.css('left')).toBe(originalLeft);
       expect(el.css('width')).toBe(originalWidth);
+    });
+  });
+
+  describe('select with the show loader option', function() {
+    var body;
+
+    beforeEach(inject(function($document) {
+      body = $document.find('body')[0];
+    }));
+
+    it('should show a loader indicator when show loader is truthy', function() {
+      var el = createUiSelect({showLoader: true});
+      expect(el.find('.ui-select-loading-indicator').hasClass('ng-hide')).toBe(false);
+    });
+
+    it('should hide a loader indicator when show loader is falsy', function() {
+      var el = createUiSelect({showLoader: false});
+      expect(el.find('.ui-select-loading-indicator').hasClass('ng-hide')).toBe(true);
+    });
+
+    it('should hide a loader indicator when there is not an attr show-loader', function() {
+      var el = createUiSelect();
+      expect(el.find('.ui-select-loading-indicator').hasClass('ng-hide')).toBe(true);
     });
   });
 
