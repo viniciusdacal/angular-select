@@ -68,6 +68,12 @@ uis.directive('uiSelect',
             $select.sortable = sortable !== undefined ? sortable : uiSelectConfig.sortable;
         });
 
+        scope.$watch('showLoader', function() {
+          if (attrs.showLoader !== undefined) {
+            $select.showLoader = scope.$eval(attrs.showLoader);
+          }
+        });
+
         attrs.$observe('disabled', function() {
           // No need to use $eval() (thanks to ng-disabled) since we already get a boolean instead of a string
           $select.disabled = attrs.disabled !== undefined ? attrs.disabled : false;
@@ -129,6 +135,7 @@ uis.directive('uiSelect',
               });
           });
         }
+
 
         function onDocumentClick(e) {
           if (!$select.open) return; //Skip it if dropdown is close
