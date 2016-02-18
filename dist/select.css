@@ -1,7 +1,7 @@
 /*!
  * ui-select
  * http://github.com/angular-ui/ui-select
- * Version: 0.0.5 - 2015-09-22T13:31:28.630Z
+ * Version: 0.0.6 - 2016-02-18T11:01:53.479Z
  * License: MIT
  */
 
@@ -42,6 +42,21 @@
 
 .select-locked > .ui-select-match-close{
     display:none;
+}
+
+.ui-select-loading-indicator {
+    position: absolute;
+    right: 25px;
+    width: 20px;
+    z-index: 999999999;
+    height: 100%;
+}
+.ui-select-loading-indicator img {
+    max-width: 100%;
+    position: absolute;
+    height: 20px;
+    top: 50%;
+    margin-top: -10px;
 }
 
 body > .select2-container.open {
