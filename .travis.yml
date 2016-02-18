@@ -3,7 +3,7 @@ node_js:
   - "5.6.0"
 
 addons:
-  firefox: "38.0"
+  firefox: "42.0"
 
 before_install:
   - npm install -g npm@3.5.3
