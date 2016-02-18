@@ -1,7 +1,7 @@
 /*!
- * ui-select
- * http://github.com/angular-ui/ui-select
- * Version: 0.1.0 - 2016-02-18T16:50:19.677Z
+ * angular-select-compufacil
+ * http://github.com/viniciusdacal/angular-select-compufacil
+ * Version: 0.1.1 - 2016-02-18T18:12:44.712Z
  * License: MIT
  */
 
