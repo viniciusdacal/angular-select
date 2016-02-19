@@ -1945,6 +1945,19 @@ describe('ui-select tests', function() {
       var el = createUiSelect();
       expect(el.find('.ui-select-loading-indicator').hasClass('ng-hide')).toBe(true);
     });
+
+    it('should watch changes at show-loader option', function() {
+      scope.showLoader = undefined;
+      var el = createUiSelect({showLoader: 'showLoader'});
+      expect(el.find('.ui-select-loading-indicator').hasClass('ng-hide')).toBe(true);
+      scope.showLoader = true;
+      scope.$digest();
+      expect(el.find('.ui-select-loading-indicator').hasClass('ng-hide')).toBe(false);
+      scope.showLoader = false;
+      scope.$digest();
+      expect(el.find('.ui-select-loading-indicator').hasClass('ng-hide')).toBe(true);
+    });
+
   });
 
 });

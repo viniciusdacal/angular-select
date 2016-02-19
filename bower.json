@@ -20,11 +20,11 @@
     "examples"
   ],
   "dependencies": {
-    "angular": ">=1.2.18"
+    "angular": ">=1.4.9"
   },
   "devDependencies": {
     "jquery": "~1.11",
-    "angular-sanitize": ">=1.2.18",
-    "angular-mocks": ">=1.2.18"
+    "angular-sanitize": ">=1.4.9",
+    "angular-mocks": ">=1.4.9"
   }
 }

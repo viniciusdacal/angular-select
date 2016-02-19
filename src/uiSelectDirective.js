@@ -12,7 +12,6 @@ uis.directive('uiSelect',
     transclude: true,
     require: ['uiSelect', '^ngModel'],
     scope: true,
-
     controller: 'uiSelectCtrl',
     controllerAs: '$select',
     compile: function(tElement, tAttrs) {
@@ -68,10 +67,8 @@ uis.directive('uiSelect',
             $select.sortable = sortable !== undefined ? sortable : uiSelectConfig.sortable;
         });
 
-        scope.$watch('showLoader', function() {
-          if (attrs.showLoader !== undefined) {
-            $select.showLoader = scope.$eval(attrs.showLoader);
-          }
+        scope.$watch(attrs.showLoader, function (newValue) {
+            $select.showLoader = newValue;
         });
 
         attrs.$observe('disabled', function() {

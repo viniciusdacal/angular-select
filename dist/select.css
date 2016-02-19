@@ -1,7 +1,7 @@
 /*!
  * angular-select-compufacil
  * http://github.com/viniciusdacal/angular-select-compufacil
- * Version: 0.1.2 - 2016-02-18T18:16:03.192Z
+ * Version: 0.1.2 - 2016-02-19T16:01:26.391Z
  * License: MIT
  */
 
@@ -46,7 +46,7 @@
 
 .ui-select-loading-indicator {
     position: absolute;
-    right: 25px;
+    right: 10px;
     width: 20px;
     z-index: 999999999;
     height: 100%;

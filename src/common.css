@@ -38,7 +38,7 @@
 
 .ui-select-loading-indicator {
     position: absolute;
-    right: 25px;
+    right: 10px;
     width: 20px;
     z-index: 999999999;
     height: 100%;
