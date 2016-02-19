@@ -1,7 +1,7 @@
 /*!
  * angular-select-compufacil
  * http://github.com/viniciusdacal/angular-select-compufacil
- * Version: 0.1.2 - 2016-02-18T18:16:03.104Z
+ * Version: 0.1.2 - 2016-02-19T16:01:25.756Z
  * License: MIT
  */
 
@@ -897,7 +897,6 @@ uis.directive('uiSelect',
     transclude: true,
     require: ['uiSelect', '^ngModel'],
     scope: true,
-
     controller: 'uiSelectCtrl',
     controllerAs: '$select',
     compile: function(tElement, tAttrs) {
@@ -953,10 +952,8 @@ uis.directive('uiSelect',
             $select.sortable = sortable !== undefined ? sortable : uiSelectConfig.sortable;
         });
 
-        scope.$watch('showLoader', function() {
-          if (attrs.showLoader !== undefined) {
-            $select.showLoader = scope.$eval(attrs.showLoader);
-          }
+        scope.$watch(attrs.showLoader, function (newValue) {
+            $select.showLoader = newValue;
         });
 
         attrs.$observe('disabled', function() {

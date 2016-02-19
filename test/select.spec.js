@@ -1945,6 +1945,17 @@ describe('ui-select tests', function() {
       var el = createUiSelect();
       expect(el.find('.ui-select-loading-indicator').hasClass('ng-hide')).toBe(true);
     });
+
+    iit('should watch changes at show-loader option', function() {
+      scope.showLoader = false;
+      var el = createUiSelect({showLoader: 'showLoader'});
+      expect(el.find('.ui-select-loading-indicator').hasClass('ng-hide')).toBe(true);
+      scope.showLoader = true;
+      $timeout(function () {
+        expect(el.find('.ui-select-loading-indicator').hasClass('ng-hide')).toBe(false);
+      });
+    });
+
   });
 
 });
