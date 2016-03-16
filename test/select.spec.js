@@ -213,7 +213,7 @@ describe('ui-select tests', function() {
 
     expect(getMatchLabel(el)).toEqual('Adam');
   });
-  
+
   it('should correctly render initial state with track by feature', function() {
     var el = compileTemplate(
       '<ui-select ng-model="selection.selected"> \
@@ -321,13 +321,13 @@ describe('ui-select tests', function() {
   it('should toggle allow-clear directive', function() {
     scope.selection.selected = scope.people[0];
     scope.isClearAllowed = false;
-    
+
     var el = createUiSelect({theme : 'select2', allowClear: '{{isClearAllowed}}'});
     var $select = el.scope().$select;
 
     expect($select.allowClear).toEqual(false);
     expect(el.find('.select2-search-choice-close').length).toEqual(0);
-    
+
     // Turn clear on
     scope.isClearAllowed = true;
     scope.$digest();

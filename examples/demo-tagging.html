@@ -150,6 +150,26 @@
   </ui-select>
   <p>Selected: {{person.selected}}</p>
 
+
+  <h3>Tagging without multiple with label and complex objects and allow-clear</h3>
+  <ui-select
+    tagging="convertToPerson"
+    on-select="onSelect($item, $model)"
+    ng-model="person.selected"
+    ng-disabled="disabled"
+    title="Choose a person"
+    style="width: 800px;"
+    >
+  <ui-select-match placeholder="Selecione um cliente" allow-clear="true">
+    {{$select.selected.name}}
+  </ui-select-match>
+  <ui-select-choices repeat="person in people | propsFilter: {name: $select.search}" >
+    <div ng-if="person.isTag" ng-bind-html="person.name +' <small>(new)</small>'"></div>
+    <div ng-if="!person.isTag" ng-bind-html="person.name | highlight: $select.search"></div>
+  </ui-select-choices>
+  </ui-select>
+  <p>Selected: {{person.selected}}</p>
+
   <div style="height:500px"></div>
 
 </body>
