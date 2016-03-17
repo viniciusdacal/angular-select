@@ -6,7 +6,7 @@
   "repository": {
     "url": "git://github.com/viniciusdacal/angular-select-compufacil.git"
   },
-  "version": "0.1.2",
+  "version": "0.1.4",
   "devDependencies": {
     "conventional-changelog": "^0.5.3",
     "conventional-recommended-bump": "0.0.3",

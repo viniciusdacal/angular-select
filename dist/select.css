@@ -1,7 +1,7 @@
 /*!
  * angular-select-compufacil
  * http://github.com/viniciusdacal/angular-select-compufacil
- * Version: 0.1.2 - 2016-02-19T16:01:26.391Z
+ * Version: 0.1.4 - 2016-03-17T19:15:21.093Z
  * License: MIT
  */
 
@@ -138,6 +138,29 @@ body > .select2-container.open {
   text-align: left !important;
 }
 
+.ui-select-bootstrap > .ui-select-match.has-action-buttons {
+  display: table;
+}
+
+.ui-select-bootstrap > .ui-select-match.has-action-buttons .ui-select-toggle {
+  display: table-cell;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.ui-select-bootstrap > .ui-select-match.has-action-buttons .addon {
+  display: table-cell;
+
+}
+
+.addon .btn {
+  border-left: 0;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.ui-select-bootstrap > .ui-select-match .btn-xs{
+  line-height: 1.4;
+}
 .ui-select-bootstrap > .ui-select-match > .caret {
   position: absolute;
   top: 45%;
