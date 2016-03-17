@@ -16,7 +16,6 @@ uis.directive('uiSelect',
     controllerAs: '$select',
     compile: function(tElement, tAttrs) {
 
-      //Multiple or Single depending if multiple attribute presence
       if (angular.isDefined(tAttrs.multiple))
         tElement.append("<ui-select-multiple/>").removeAttr('multiple');
       else
@@ -32,7 +31,7 @@ uis.directive('uiSelect',
         $select.focusserTitle = $select.baseTitle + ' focus';
         $select.focusserId = 'focusser-' + $select.generatedId;
 
-        $select.closeOnSelect = function() {
+        $select.closeOnSelect = function () {
           if (angular.isDefined(attrs.closeOnSelect)) {
             return $parse(attrs.closeOnSelect)();
           } else {
@@ -57,12 +56,12 @@ uis.directive('uiSelect',
           });
         }
 
-        scope.$watch('searchEnabled', function() {
+        scope.$watch('searchEnabled', function () {
             var searchEnabled = scope.$eval(attrs.searchEnabled);
             $select.searchEnabled = searchEnabled !== undefined ? searchEnabled : uiSelectConfig.searchEnabled;
         });
 
-        scope.$watch('sortable', function() {
+        scope.$watch('sortable', function () {
             var sortable = scope.$eval(attrs.sortable);
             $select.sortable = sortable !== undefined ? sortable : uiSelectConfig.sortable;
         });
@@ -71,46 +70,48 @@ uis.directive('uiSelect',
             $select.showLoader = newValue;
         });
 
-        attrs.$observe('disabled', function() {
+        attrs.$observe('disabled', function () {
           // No need to use $eval() (thanks to ng-disabled) since we already get a boolean instead of a string
           $select.disabled = attrs.disabled !== undefined ? attrs.disabled : false;
         });
 
-        attrs.$observe('resetSearchInput', function() {
+        attrs.$observe('resetSearchInput', function () {
           // $eval() is needed otherwise we get a string instead of a boolean
           var resetSearchInput = scope.$eval(attrs.resetSearchInput);
           $select.resetSearchInput = resetSearchInput !== undefined ? resetSearchInput : true;
         });
 
-        attrs.$observe('tagging', function() {
-          if(attrs.tagging !== undefined)
-          {
+        attrs.$observe('tagging', function () {
+          if (attrs.tagging !== undefined) {
             // $eval() is needed otherwise we get a string instead of a boolean
             var taggingEval = scope.$eval(attrs.tagging);
             $select.tagging = {isActivated: true, fct: taggingEval !== true ? taggingEval : undefined};
-          }
-          else
-          {
+          } else {
             $select.tagging = {isActivated: false, fct: undefined};
           }
         });
 
-        attrs.$observe('taggingLabel', function() {
-          if(attrs.tagging !== undefined )
-          {
-            // check eval for FALSE, in this case, we disable the labels
-            // associated with tagging
-            if ( attrs.taggingLabel === 'false' ) {
+        attrs.$observe('actionButtons', function () {
+          if(attrs.actionButtons !== undefined) {
+            // $eval() is needed otherwise we get a string instead of a boolean
+            var actionButtonsEval = scope.$eval(attrs.actionButtons);
+            $select.actionButtons = {isActivated: true, fct: actionButtonsEval !== true ? actionButtonsEval : undefined};
+          } else {
+            $select.actionButtons = {isActivated: false, fct: undefined};
+          }
+        });
+
+        attrs.$observe('taggingLabel', function () {
+          if (attrs.tagging !== undefined ) {
+            if (attrs.taggingLabel === 'false') {
               $select.taggingLabel = false;
-            }
-            else
-            {
+            } else {
               $select.taggingLabel = attrs.taggingLabel !== undefined ? attrs.taggingLabel : '(new)';
             }
           }
         });
 
-        attrs.$observe('taggingTokens', function() {
+        attrs.$observe('taggingTokens', function () {
           if (attrs.tagging !== undefined) {
             var tokens = attrs.taggingTokens !== undefined ? attrs.taggingTokens.split('|') : [',','ENTER'];
             $select.taggingTokens = {isActivated: true, tokens: tokens };
@@ -119,15 +120,15 @@ uis.directive('uiSelect',
 
         //Automatically gets focus when loaded
         if (angular.isDefined(attrs.autofocus)){
-          $timeout(function(){
+          $timeout(function (){
             $select.setFocus();
           });
         }
 
         //Gets focus based on scope event name (e.g. focus-on='SomeEventName')
         if (angular.isDefined(attrs.focusOn)){
-          scope.$on(attrs.focusOn, function() {
-              $timeout(function(){
+          scope.$on(attrs.focusOn, function () {
+              $timeout(function (){
                 $select.setFocus();
               });
           });
@@ -159,40 +160,32 @@ uis.directive('uiSelect',
           $select.clickTriggeredSelect = false;
         }
 
-        // See Click everywhere but here event http://stackoverflow.com/questions/12931369
         $document.on('click', onDocumentClick);
 
-        scope.$on('$destroy', function() {
+        scope.$on('$destroy', function () {
           $document.off('click', onDocumentClick);
         });
 
-        // Move transcluded elements to their correct position in main template
         transcludeFn(scope, function(clone) {
-          // See Transclude in AngularJS http://blog.omkarpatil.com/2012/11/transclude-in-angularjs.html
-
-          // One day jqLite will be replaced by jQuery and we will be able to write:
-          // var transcludedElement = clone.filter('.my-class')
-          // instead of creating a hackish DOM element:
           var transcluded = angular.element('<div>').append(clone);
 
           var transcludedMatch = transcluded.querySelectorAll('.ui-select-match');
-          transcludedMatch.removeAttr('ui-select-match'); //To avoid loop in case directive as attr
-          transcludedMatch.removeAttr('data-ui-select-match'); // Properly handle HTML5 data-attributes
+          transcludedMatch.removeAttr('ui-select-match');
+          transcludedMatch.removeAttr('data-ui-select-match');
           if (transcludedMatch.length !== 1) {
             throw uiSelectMinErr('transcluded', "Expected 1 .ui-select-match but got '{0}'.", transcludedMatch.length);
           }
           element.querySelectorAll('.ui-select-match').replaceWith(transcludedMatch);
 
           var transcludedChoices = transcluded.querySelectorAll('.ui-select-choices');
-          transcludedChoices.removeAttr('ui-select-choices'); //To avoid loop in case directive as attr
-          transcludedChoices.removeAttr('data-ui-select-choices'); // Properly handle HTML5 data-attributes
+          transcludedChoices.removeAttr('ui-select-choices');
+          transcludedChoices.removeAttr('data-ui-select-choices');
           if (transcludedChoices.length !== 1) {
             throw uiSelectMinErr('transcluded', "Expected 1 .ui-select-choices but got '{0}'.", transcludedChoices.length);
           }
           element.querySelectorAll('.ui-select-choices').replaceWith(transcludedChoices);
         });
 
-        // Support for appending the select field to the body when its open
         var appendToBody = scope.$eval(attrs.appendToBody);
         if ((appendToBody !== undefined ? appendToBody : uiSelectConfig.appendToBody) || attrs.appendTo) {
           scope.$watch('$select.open', function(isOpen) {
@@ -203,32 +196,24 @@ uis.directive('uiSelect',
             }
           });
 
-          // Move the dropdown back to its original location when the scope is destroyed. Otherwise
-          // it might stick around when the user routes away or the select field is otherwise removed
-          scope.$on('$destroy', function() {
+          scope.$on('$destroy', function () {
             resetDropdown();
           });
         }
 
-        // Hold on to a reference to the .ui-select-container element for appendToBody support
         var placeholder = null,
             originalWidth = '';
 
         function positionDropdown() {
-          // Remember the absolute position of the element
           var offset = uisOffset(element);
 
-          // Clone the element into a placeholder element to take its original place in the DOM
           placeholder = angular.element('<div class="ui-select-placeholder"></div>');
           placeholder[0].style.width = offset.width + 'px';
           placeholder[0].style.height = offset.height + 'px';
           element.after(placeholder);
 
-          // Remember the original value of the element width inline style, so it can be restored
-          // when the dropdown is closed
           originalWidth = element[0].style.width;
 
-          // Now move the actual dropdown element to the end of the body
           if (attrs.appendTo) {
             var parent = $document.find(attrs.appendTo);
             var parentOffset = parent.offset();
@@ -247,11 +232,9 @@ uis.directive('uiSelect',
 
         function resetDropdown() {
           if (placeholder === null) {
-            // The dropdown has not actually been display yet, so there's nothing to reset
             return;
           }
 
-          // Move the dropdown element back to its original location in the DOM
           placeholder.replaceWith(element);
           placeholder = null;
 
