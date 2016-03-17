@@ -135,13 +135,17 @@ app.controller('DemoCtrl', function($scope, $http, $timeout, $interval) {
   };
 
   $scope.onSelect = function($item, $model){
-    if(!$item.isTag){
+    if(!$item || !$item.isTag){
         return false;
     }
     var item = angular.copy($item);
     delete item.isTag;
 
     $scope.people.push(item);
+  };
+
+  $scope.actionCallback = function(type, content){
+    console.log(type, content);
   };
 
   $scope.person = {};

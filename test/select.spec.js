@@ -96,6 +96,7 @@ describe('ui-select tests', function() {
   function createUiSelect(attrs) {
     var attrsHtml = '',
         matchAttrsHtml = '';
+
     if (attrs !== undefined) {
       if (attrs.disabled !== undefined) { attrsHtml += ' ng-disabled="' + attrs.disabled + '"'; }
       if (attrs.required !== undefined) { attrsHtml += ' ng-required="' + attrs.required + '"'; }
@@ -104,6 +105,7 @@ describe('ui-select tests', function() {
       if (attrs.tabindex !== undefined) { attrsHtml += ' tabindex="' + attrs.tabindex + '"'; }
       if (attrs.tagging !== undefined) { attrsHtml += ' tagging="' + attrs.tagging + '"'; }
       if (attrs.taggingTokens !== undefined) { attrsHtml += ' tagging-tokens="' + attrs.taggingTokens + '"'; }
+      if (attrs.actionButtons !== undefined) { attrsHtml += ' action-buttons="' + attrs.actionButtons + '"'; }
       if (attrs.title !== undefined) { attrsHtml += ' title="' + attrs.title + '"'; }
       if (attrs.appendToBody !== undefined) { attrsHtml += ' append-to-body="' + attrs.appendToBody + '"'; }
       if (attrs.appendTo !== undefined) { attrsHtml += ' append-to="' + attrs.appendTo + '"'; }
@@ -137,6 +139,11 @@ describe('ui-select tests', function() {
 
   function clickMatch(el) {
     $(el).find('.ui-select-match > span:first').click();
+    scope.$digest();
+  }
+
+  function clickActionButton(el) {
+    $(el).find('.ui-select-match > .addon > button:not(.ng-hide)').click();
     scope.$digest();
   }
 
@@ -423,6 +430,44 @@ describe('ui-select tests', function() {
       group: 'Foo',
       age: 12
     });
+  });
+
+  it('should not show action buttons when not pass actionButton attribute', function () {
+    var el = createUiSelect();
+    scope.$digest();
+    $timeout.flush();
+    expect($(el).find('.ui-select-match > .addon').length).toEqual(0);
+  });
+
+  it('should call actionButtons callback when perform a click on the button', function () {
+    var el;
+    scope.actionFunc = function (name) {
+      return name;
+    };
+    spyOn(scope, 'actionFunc');
+
+    el = createUiSelect({actionButtons: 'actionFunc'});
+    clickActionButton(el);
+    scope.$digest();
+    $timeout.flush();
+
+    expect(scope.actionFunc).toHaveBeenCalled();
+  });
+
+  it('should call actionButtons callback when select a item and perform a click on the button', function () {
+    var el;
+    scope.actionFunc = function (name) {
+      return name;
+    };
+    spyOn(scope, 'actionFunc');
+
+    el = createUiSelect({actionButtons: 'actionFunc'});
+    el.scope().$select.select(scope.people[1]);
+    clickActionButton(el);
+    scope.$digest();
+    $timeout.flush();
+
+    expect(scope.actionFunc).toHaveBeenCalled();
   });
 
   // See when an item that evaluates to false (such as "false" or "no") is selected, the placeholder is shown https://github.com/angular-ui/ui-select/pull/32
