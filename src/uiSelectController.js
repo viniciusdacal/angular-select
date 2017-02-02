@@ -554,7 +554,7 @@ uis.controller('uiSelectCtrl',
       if ( ctrl.search.toUpperCase() === undefined || origItem === undefined ) {
         return false;
       }
-      return origItem.toUpperCase() === ctrl.search.toUpperCase();
+      return removeAccents(origItem.toUpperCase()) === removeAccents(ctrl.search.toUpperCase());
     }).length > 0;
 
     return hasDupe;
@@ -568,14 +568,14 @@ uis.controller('uiSelectCtrl',
         if ( ctrl.tagging.fct === undefined ) {
           // search the array for the match
           if ( tempArr[i]+' '+ctrl.taggingLabel === needle ) {
-          dupeIndex = i;
+            dupeIndex = i;
           }
         // handle the object tagging implementation
         } else {
           var mockObj = tempArr[i];
           mockObj.isTag = true;
           if ( angular.equals(mockObj, needle) ) {
-          dupeIndex = i;
+            dupeIndex = i;
           }
         }
       }
@@ -588,6 +588,20 @@ uis.controller('uiSelectCtrl',
       ctrl.activeIndex = 0;
       ctrl.items = items;
     });
+  }
+
+  function removeAccents(str) {
+    var accents = 'ÀÁÂÃÄÅàáâãäåÒÓÔÕÕÖØòóôõöøÈÉÊËèéêëðÇçÐÌÍÎÏìíîïÙÚÛÜùúûüÑñŠšŸÿýŽž';
+    var accentsOut = "AAAAAAaaaaaaOOOOOOOooooooEEEEeeeeeCcDIIIIiiiiUUUUuuuuNnSsYyyZz";
+    str = str.split('');
+    var strLen = str.length;
+    var i, x;
+    for (i = 0; i < strLen; i++) {
+      if ((x = accents.indexOf(str[i])) != -1) {
+        str[i] = accentsOut[x];
+      }
+    }
+    return str.join('');
   }
 
   // If tagging try to split by tokens and add items

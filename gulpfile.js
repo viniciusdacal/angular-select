@@ -84,13 +84,13 @@ gulp.task('styles', ['clean'], function() {
 
 });
 
-gulp.task('karma', ['build'], function() {
-  new Server({configFile : __dirname +'/karma.conf.js', singleRun: true}).start();
-});
+// gulp.task('karma', ['build'], function() {
+//   new Server({configFile : __dirname +'/karma.conf.js', singleRun: true}).start();
+// });
 
-gulp.task('karma-watch', ['build'], function() {
-  new Server({configFile :  __dirname +'/karma.conf.js', singleRun: false}).start();
-});
+// gulp.task('karma-watch', ['build'], function() {
+//   new Server({configFile :  __dirname +'/karma.conf.js', singleRun: false}).start();
+// });
 
 gulp.task('pull', function(done) {
   $.git.pull();
